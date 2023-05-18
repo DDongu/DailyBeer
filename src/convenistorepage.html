@@ -14,23 +14,31 @@
             font-weight: 500;
         }
         #map {
-            margin: auto;
-            width: 60%;
+            width: 800px;
             height: 500px;
         }
+        #storelist_box {
+            position: relative;
+            width: 30%;
+            height: 500px;
+            border: 1px solid;
+            /* float: left;
+            left: 10px; */
+        }
+
     </style>
 </head>
 <body>
-    <div style="background-color: antiquewhite; margin: auto; width: 80%;">
+    <div style="margin: auto; width: 80%;">
         <br>
         <div class="text-center" id="header"><p>주변 편의점 찾기</p></div>
         <br>
-        <div style="padding: 30px; display: flex; flex-direction: column; flex-wrap: wrap; align-content: flex-end;">
-            <div id="map"></div>
+        <div class="text-center">
+            <span><div style="display: inline-block" id="storelist_box"></div></span>
+            <span><div style="display: inline-block" id="map"></div></span>
         </div>
+        <br>
     </div>
-    <br>
-    <br>
 
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaRhR01rw3B2WxASU6zdOQ8wg-9Kpo024&callback=initMap" type="text/javascript"></script>
     <script src="../js/maps.js"></script>
