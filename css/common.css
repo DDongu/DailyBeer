@@ -1,18 +1,19 @@
 @font-face { /* 충북대70주년체 Regular 적용 */
     font-family: "CBNU_Regular";
-    src: url("font/충북대학교Regular.ttf") format("truetype");
+    src: url("../font/충북대학교Regular.ttf") format("truetype");
     font-weight: normal;
 } /* 이후 "CBNU_Regular"으로 폰트 적용 가능 */
 
 @font-face { /* 충북대70주년체 Bold 적용 */
     font-family: "CBNU_Bold";
-    src: url("font/충북대학교Bold.ttf") format("truetype");
+    src: url("../font/충북대학교Bold.ttf") format("truetype");
     font-weight: normal;
 } /* 이후 "CBNU_Bold"으로 폰트 적용 가능 */
 
 body {
     position: relative;
     font-family: "CBNU_Bold";
+    font-weight: bold;
 }
 
 a {
