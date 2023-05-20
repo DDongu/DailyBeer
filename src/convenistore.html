@@ -17,30 +17,68 @@
             width: 800px;
             height: 500px;
         }
-        #storelist_box {
+        #storelist-box {
             position: relative;
-            width: 30%;
+            width: 380px;
             height: 500px;
-            border: 1px solid;
-            /* float: left;
-            left: 10px; */
+            /* border: 1px solid; */
+            overflow-y: scroll;
+            overflow-x: hidden;
+            margin-right: 3px;
         }
-
+        #storelist-box::-webkit-scrollbar {
+            width: 6px;
+        }
+        #storelist-box::-webkit-scrollbar-thumb {
+            background-color: #8c8c8c;
+            /* border-radius: 25px; */
+        }
+        #storelist-box td {
+            border-bottom: 1px solid rgb(89, 89, 89);
+            width: 380px;
+            padding: 10px;
+        }
+        #storelist-box p {
+            margin: 4px 0;
+        }
+        span {
+            display: inline-block;
+            height: fit-content;
+        }
+        .store-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .store-btn {
+            font-size: 18px !important;
+            font-weight: bold !important;
+            margin: 0 10px;
+        }
     </style>
 </head>
 <body>
-    <div style="margin: auto; width: 80%;">
+    <div>
         <br>
         <div class="text-center" id="header"><p>주변 편의점 찾기</p></div>
         <br>
         <div class="text-center">
-            <span><div style="display: inline-block" id="storelist_box"></div></span>
+            <span>
+                <div>
+                    <span type="button" class="store-btn btn" onclick="clickedStore(0)">CU</span>
+                    <span type="button" class="store-btn btn" onclick="clickedStore(1)">GS25</span>
+                    <span type="button" class="store-btn btn" onclick="clickedStore(2)">7ELEVEN</span>
+                </div>
+                <div style="display: inline-block" id="storelist-box">
+                    <table>
+                    </table>
+                </div>
+            </span>
             <span><div style="display: inline-block" id="map"></div></span>
         </div>
         <br>
     </div>
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaRhR01rw3B2WxASU6zdOQ8wg-9Kpo024&callback=initMap" type="text/javascript"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaRhR01rw3B2WxASU6zdOQ8wg-9Kpo024&libraries=places&callback=initMap"></script>
     <script src="../js/maps.js"></script>
     <script src="../js/common.js"></script>
 </body>

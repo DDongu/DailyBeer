@@ -1,73 +1,168 @@
+/* Set map */
 function initMap() {
+    // 충북대 36.6283933, 127.459223
+    const base = new google.maps.LatLng(36.6275, 127.4573)
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 15,
-        center: {lat: 36.6283933, lng: 127.459223},
+        center: base,
         scrollwheel: true
     });
+    const infowindow = new google.maps.InfoWindow();
+    const icon = "../img/cu.png";
+    
+    /* Search Service */
+    // search Request
+    let request = { 
+        query: 'cu',                                    //Search word
+        location: base,
+        fields: ['name', 'geometry', 'business_status', 'opening_hours'],                   //Return fields
+    };
 
-    for(let i=0; i<Location_GS25.length; i++) {
-        let marker = new google.maps.Marker({
-            map: map,
-            // label: Location_GS25[i].place,
-            position: Location_GS25[i],
-            icon: new google.maps.MarkerImage("../img/gs25.png"),
-        });
-    }
-    for(let i=0; i<Location_CU.length; i++) {
-        let marker = new google.maps.Marker({
-            map: map,
-            // label: Location_CU[i].place,
-            position: Location_CU[i],
-            icon: new google.maps.MarkerImage("../img/cu.png"),
-        });
-    }
-    for(let i=0; i<Location_SEVEN.length; i++) {
-        let marker = new google.maps.Marker({
-            map: map,
-            // label: Location_SEVEN[i].place,
-            position: Location_SEVEN[i],
-            icon: new google.maps.MarkerImage("../img/seven.png"),
-        });
-    }
+    // map Service
+    const service = new google.maps.places.PlacesService(map);
+    service.textSearch(request, function(results, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+        for (let j = 0; j < results.length; j++) {
+            createMarker(results[j], map, infowindow, icon);
+            createListItem(results[j].plus_code.global_code, results[j].name, results[j].formatted_address, results[j].business_status);
+        }
+        map.setCenter(results[0].geometry.location);    //Set center to the first result
+        }
+    });
 }
 
-const Location_GS25 = [{place: "GS25가경파크점",	lng: 127.43268642,	lat: 36.62760713},
-                        {place: "GS25가경한마음점",	lng: 127.44124805,	lat: 36.62338487},
-                        {place: "GS25M15점",	lng: 127.43088606,	lat: 36.65348123},
-                        {place: "GS25강서베리굿점",	lng: 127.4280193,	lat: 36.6236916},
-                        {place: "GS25가경하나점",	lng: 127.43301098,	lat: 36.62298547},
-                        {place: "GS25가경프라임점",	lng: 127.42937125,	lat: 36.62532927},
-                        {place: "GS25강내예가점",	lng: 127.36400414,	lat: 36.62316885},
-                        {place: "GS25강서중앙점",	lng: 127.42533662,	lat: 36.62511161},
-                        {place: "GS25가경행복점",	lng: 127.43619088,	lat: 36.63002099},
-                        {place: "GS25가경세원점",	lng: 127.43886019,	lat: 36.62735699},
-                        {place: "GS25가경대로점",	lng: 127.43773023,	lat: 36.62590973},
-                        {place: "GS25개신주공점",	lng: 127.44865595,	lat: 36.62248211},
-                        {place: "GS25개신한솔점",	lng: 127.46706762,	lat: 36.62444941},
-                        {place: "GS25개신3단지점",	lng: 127.4459613,	lat: 36.62094657},
-                        {place: "GS25",	lng: 127.51590125,	lat: 36.62142246}];
+function removeList(){
+    const parent = document.getElementById('storelist-box');
+    parent.innerHTML = '<table></table>';
+}
 
-const Location_CU = [{place:"CU충북생활관점", lng: 127.454869, lat: 36.6275179 }, 
-                    {place:"CU청주창신점", lng: 127.463317, lat: 36.6343430 }, 
-                    {place:"CU청주개신성은점", lng: 127.464447, lat: 36.6268683 }, 
-                    {place:"CU청주복대민들레점", lng: 127.455163, lat: 36.6338516 }, 
-                    {place:"CU청주개신오거리점", lng: 127.463999, lat: 36.6249776 }, 
-                    {place:"CU청주창신점", lng: 127.463317, lat: 36.6343430 }, 
-                    {place:"CU청주개신원룸점", lng: 127.462893, lat: 36.6287847 }, 
-                    {place:"CU충북대중문점", lng: 127.458025, lat: 36.6337866 }, 
-                    {place:"CU충북대사랑점", lng: 127.456504, lat: 36.6317739 }, 
-                    {place:"CU충북대공원점", lng: 127.459604, lat: 36.6323298 }];
+function clickedStore(n) {
+    // Empty the list
+    removeList();
+    // 충북대 36.6283933, 127.459223
+    const base = new google.maps.LatLng(36.6275, 127.4573)
+    const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 15,
+        center: base,
+    });
+    const infowindow = new google.maps.InfoWindow();
+    const icons = ["../img/cu.png", "../img/gs25.png", "../img/seven.png"]
+    
+    /* Search Service */
+    // search Request
+    let requests = [{ 
+        query: 'cu',                                    //Search word
+        location: base,
+        fields: ['name', 'geometry', 'business_status', 'opening_hours'],                   //Return fields
+    },
+    {
+        query: 'gs25',                                    //Search word
+        location: base,
+        fields: ['name', 'geometry', 'business_status', 'opening_hours'],                   //Return fields
+    },
+    {
+        query: 'seveneleven',                              //Search word
+        location: base,
+        fields: ['name', 'geometry', 'business_status', 'opening_hours'],                   //Return fields
+    }];
 
-const Location_SEVEN = [{place:"세븐일레븐 충북대뉴중문점", lng: 127.458144, lat: 36.6330022 },
-                        {place:"세븐일레븐 충북대포커스점", lng: 127.449930, lat: 36.6298975 },
-                        {place:"세븐일레븐 복대타운점", lng: 127.448378, lat: 36.6282363 },
-                        {place:"세븐일레븐 충북대학연산점", lng: 127.459223, lat: 36.6283933 },
-                        {place:"세븐일레븐 청주개신월드점", lng: 127.463481, lat: 36.6279804 },
-                        {place:"세븐일레븐 충북대후문점", lng: 127.460236, lat: 36.6314082 },
-                        {place:"세븐일레븐 충북대월드점", lng: 127.457119, lat: 36.6318076 },
-                        {place:"세븐일레븐 충북대사거리점", lng: 127.453374, lat: 36.6338044 },
-                        {place:"세븐일레븐 청주사창동아점", lng: 127.456418, lat: 36.6342073 },
-                        {place:"세븐일레븐 청주복대성당점", lng: 127.450350, lat: 36.6328156 }];
 
+    // map Service
+    const service = new google.maps.places.PlacesService(map);
+    service.textSearch(requests[n], function(results, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+        for (let j = 0; j < results.length; j++) {
+            createMarker(results[j], map, infowindow, icons[n]);
+            createListItem(results[j].plus_code.global_code, results[j].name, results[j].formatted_address, results[j].business_status);
+        }
+        map.setCenter(results[0].geometry.location);    //Set center to the first result
+        }
+    });
+}
+
+/* Create markerCollection */
+function createMarker(place, map, infowindow, icon) {
+    let marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location,
+        title: place.name,
+        // icon: {
+        //     url: icon,
+        // },
+    });
+    // can find the marker in the markerCollection by ID
+    let id = place.plus_code.global_code;
+    markerCollection[id] = marker;
+  
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.setContent(place.name);
+        infowindow.open(map, this);
+    });
+}
+
+/* Effect the marker */
+// function markerActivity(marker) {
+//     let keys = Object.keys(markerCollection);
+//     for(let i=0; i<keys.length; i++) {
+//         markerCollection[keys[i]].setAnimation(null);
+//     }
+//     // Apply clicked marker effect
+//     marker.setAnimation(google.maps.Animation.BOUNCE);
+// }
+function markerActivity(marker) {
+    let keys = Object.keys(markerCollection);
+    for(let i=0; i<keys.length; i++) {
+        markerCollection[keys[i]].setVisible(false);
+    }
+    // Apply clicked marker effect
+    marker.setVisible(true);
+}
+
+/* Create a list of marked marker */
+function createListItem(id, name, address, isOpen){
+    const table = document.querySelector('table');
+    const tr = document.createElement('tr');
+    const item = document.createElement('td');
+    const p = [document.createElement('p'), document.createElement('p'), document.createElement('p'), document.createElement('p')];
+
+    // Title
+    p[0].textContent = name;
+    p[0].className = 'store-title'
+    item.append(p[0]);
+
+    // Address
+    p[1].textContent = address;
+    item.append(p[1]);
+    
+    // Open or Close
+    if(isOpen=="OPERATIONAL") {
+        p[2].textContent = "영업 중";
+        p[2].style.color = "green";
+    } else {
+        p[2].textContent = "영업 종료";
+        p[2].style.color = "red";
+    }
+    item.append(p[2]);
+
+    //
+    p[3].textContent = id;
+    p[3].style.display = "none";
+    item.append(p[3]);
+
+    // to Button
+    item.className = 'btn text-left';
+    item.setAttribute('type', 'button');
+
+    // Event
+    item.addEventListener('click', function() {
+        const marker = markerCollection[id];
+        markerActivity(marker);
+    });
+
+    // Add to table
+    tr.appendChild(item);
+    table.appendChild(tr);
+}
+
+var markerCollection = {};
 window.initMap = initMap;
-
