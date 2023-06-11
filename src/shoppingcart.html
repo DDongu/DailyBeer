@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/common.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#mapContainer").load("../src/convenistore.html");
+        });
+    </script>
+    <title>:: DailyBeer ::</title>
+    <style>
+        #outContainer {
+            margin: auto;
+            width: 1300px;
+        }
+        #title {
+            background-color: transparent;
+            border: none;
+            font-size: 35px;
+            font-weight: bold;
+            margin-top: 15px;
+            text-align: center;
+        }
+        #cartHead {
+            border-top: 1px solid #d6d6d6;
+            border-bottom: 1.5px solid #d6d6d6;
+            background-color: #f0f0f0;
+            padding: 10px 0;
+            font-weight: bold;
+        }
+        #cartFooter {
+            border-top: 1px solid #d6d6d6;
+            border-bottom: 1px solid #d6d6d6;
+            background-color: #f0f0f0;
+            padding: 10px 0;
+            font-weight: bold;
+        }
+        #cartDetailContainer img{
+            height: 80px;
+        }
+        #pickupTimeContainer {
+            margin: auto;
+            font-size: 22px;
+
+        }
+        #pickupTimeContainer span:not(:last-child) {
+            margin-right: 80px;
+        }
+        #pickupTimeContainer input {
+            margin-top: 8px;
+        }
+        .item {
+            border-bottom: 1px solid #d6d6d6;
+            height: 100px;
+        }
+        .rightborder {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            border-right: 1px solid #d6d6d6;
+        }
+        .leftborder {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            border-left: 1px solid #d6d6d6;
+        }
+        .listborder:only-child {
+            display: block;
+        }
+        .horizontalCenter{
+            margin: auto;
+        }
+        .item-info div {
+            height: 100%;
+        }
+        .item-info div p {
+            font-size: 20px;
+            font-weight: bold;
+            margin: auto 0;
+        }
+        .form-check {
+            margin-left: 10px;
+        }
+        .checkboxstyle {
+            margin: 0 0 22px 10px;
+        }   
+        #orderBtn:active {
+            /* background-color: #FFA500; */
+            transform: translateY(2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        #orderBtn{
+            font-size: 23px;
+            font-weight: bold;
+            height: 60px;
+            width: 300px;
+            margin: 70px 0 100px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 일반적인 그림자 효과 */
+        }
+    </style>
+</head>
+<body>
+    <div id="outContainer">
+        <p id="title" >장바구니</p>
+        <div id="cartDetailContainer">
+                <div id="cartHead" class="row text-center">
+                    <div class="col-sm-1">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="itemAllCheck">
+                        </div>
+                    </div>
+                    <div class="col-sm-7">상품정보</div>
+                    <div class="col-sm-2">가격</div>
+                    <div class="col-sm-2">수량</div>
+                </div>
+        </div>
+        <div>
+            <div id="cartFooter" class="row text-center">
+                <div class="col-sm-8"></div>
+                <div class="col-sm-2">합계</div>
+                <div id="totalprice" class="col-sm-2">11,700</div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <hr>
+        <br>
+        <div>
+            <p style="font-size: 30px; font-weight: bold; text-align: center;">픽업시간</p>
+            <div id="pickupTimeContainer" class="form-check text-center">
+                <span>
+                    <input class="form-check-input time" type="radio" name="time" id="time1" checked>
+                    <label class="form-check-label" for="time1">30분 이내</label>
+                </span>
+                <span>
+                    <input class="form-check-input time" type="radio" name="time" id="time2">
+                    <label class="form-check-label" for="time2">1시간 이내</label>
+                </span>
+                <span>
+                    <input class="form-check-input time" type="radio" name="time" id="time3">
+                    <label class="form-check-label" for="time3">2시간 이내</label>
+                </span>
+                <span>
+                    <input class="form-check-input time" type="radio" name="time" id="time4">
+                    <label class="form-check-label" for="time4">3시간 이내</label>
+                </span>
+            </div>
+        </div>
+        <br>
+        <br>
+        <hr>
+        <br>
+        <p style="font-size: 30px; font-weight: bold; text-align: center; margin:0;">편의점</p>
+        <div id="mapContainer"></div>
+        <div class="text-center">
+            <button id="orderBtn" type="button" class="btn btn-dark">주문하기</button>
+        </div>
+    </div>
+    <script>
+        const times = document.querySelectorAll('.time');
+        const orderBtn = document.querySelector('#orderBtn');
+        orderBtn.addEventListener('click', () => {
+            if(!seletedConveni2.innerHTML) {
+                alert('편의점을 선택해주세요.');
+                return;
+            }
+            time = checkTime();
+            msg = seletedConveni2.innerHTML + '에서 주문하시겠습니까?';
+            if(confirm(msg)) {
+                alert(`주문이 완료되었습니다.\n${time} 이내에 편의점으로 방문해주세요.`);
+            }
+        });
+        function checkTime() {
+            let tmp;
+            for(let i = 0; i < times.length; i++) {
+                if(times[i].checked) {
+                    tmp = i;
+                }
+            }
+            switch(tmp) {
+                case 0:
+                    return "30분"
+                    break;
+                case 1:
+                    return "1시간"
+                    break;
+                case 2:
+                    return "2시간"
+                    break;
+                case 3:
+                    return "3시간"
+                    break;
+            }
+        }
+    </script>
+    <script src="../js/shoppingcart.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>

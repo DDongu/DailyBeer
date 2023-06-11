@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/common.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // get Datafile (beer.json, snack.json)
+            $.getJSON('../json/beer.json', function(data) {
+                function callMakeMenu(filename) {
+                    makeMenu(data.length, data, filename);
+                }
+                // btn Listener
+                selected_beer.addEventListener('click', () => {
+                    tr = [];
+                    tr_i = 0;
+                    selected_snack.style.borderBottom = 'none'; 
+                    selected_beer.style.borderBottom = '2px solid #000000'; 
+                    while(table.hasChildNodes()) {
+                        table.removeChild(table.firstChild);
+                    }
+                    callMakeMenu("beer");
+                });
+                // initial Click
+                selected_beer.click();
+            });
+            $.getJSON('../json/snack.json', function(data) {
+                function callMakeMenu(filename) {
+                    makeMenu(data.length, data, filename);
+                }
+                selected_snack.addEventListener('click', () => {
+                    tr = [];
+                    tr_i = 0;
+                    selected_beer.style.borderBottom = 'none'; 
+                    selected_snack.style.borderBottom = '2px solid #000000'; 
+                    while(table.hasChildNodes()) {
+                        table.removeChild(table.firstChild);
+                    }
+                    callMakeMenu("snack");
+                });
+            });
+        });
+    </script>
+    <title>:: Dailyitem ::</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        svg {
+            color: black !important;
+
+        }
+        button:focus {
+            border: none;
+            text-decoration: none;
+        }
+        #orderContainer table {
+            margin: auto;
+        }
+        #orderContainertr {
+            height: 330px;
+        }
+        #orderContainer td {
+            height: 340px;
+            padding: 0 30px;
+        }
+        #orderContainer td .item:hover {
+            border: #FFC013 2px solid;
+        }
+        #go_shopping_btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        #go_shopping_btn{
+            font-size: 23px;
+            font-weight: bold;
+            height: 60px;
+            width: 300px;
+            margin: 70px 0 100px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 일반적인 그림자 효과 */
+        }
+        #updownBtn {
+            position: fixed;
+            right: 40px;
+            bottom: 50px;
+        }
+        #updownBtn button {
+            text-align: center;
+            font-weight: bold;
+            background-color: transparent;
+            border: none;
+        }
+        .like {
+            width: 30px;
+        }
+        .buy {
+            width: 30px;
+        }
+        .item_btn {
+            box-shadow: none;
+            background-color: transparent;
+            border: none;
+        }
+        .item-btn:focus {
+            border : none;
+            outline : none;
+            box-shadow: none;
+        }
+        .btn_div {
+            position : absolute;
+            bottom: 10px;
+            right : 5px;
+        }
+        .img_div {
+            position: relative;
+        }
+        .item {
+            width: 230px;
+            height: 330px;
+        }
+        .item_img {
+            width: 200px;
+            height: 250px;
+            object-fit: contain;
+            padding: 30px;
+        }
+        .info_container {
+            /* background-color: black; */
+            border-top: #000000 2px solid;
+            opacity: 0.8;
+            /* color: white; */
+            padding : 7px;
+        }
+        .b_name {
+            font-size: 23px;
+            font-weight: bold;
+            padding: 0px;
+            margin: 0px;
+        }
+        .b_desc {
+            margin: 0px;
+            font-size: 18px;
+        }
+        .b_price {
+            margin: 0px;
+            text-align: right;
+            /* color: #FFC013; */
+        }
+        .selected_btn {
+            box-shadow: none;
+            background-color: transparent;
+            border: none;
+            font-size: 30px;
+            font-weight: bold;
+            margin-top: 20px !important;
+            margin: 10px 15px; 
+        }
+    </style>
+</head>
+<body>
+    <div id="orderContainer" class="text-center">
+        <table id="orderTable"></table>
+    </div>
+    <div id="updownBtn">
+        <button onclick="Up()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#FFC013" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+            </svg>
+        </button>
+        <br>
+        <button onclick="Down()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#FFC013" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+            </svg>
+        </button>
+
+    </div>
+    <script>
+        function Up() {
+            const bodyElement = document.body;
+            const htmlElement = document.documentElement;
+            bodyElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            htmlElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+        function Down() {
+          const headerElement = document.getElementById('go_shopping_btn');
+          headerElement.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+    <script src="../js/common.js"></script>
+    <script src="../js/order.js"></script>
+</body>
+</html>

@@ -8,8 +8,15 @@
     <link rel="stylesheet" href="../css/common.css" />
     <title>Document</title>
     <style>
+        body {
+            padding-top: 160px; /* Float as much as the top menu bar */
+        }
         #header {
+            position: fixed;
             font-weight: bold;
+            width: 100%;
+            top: 0;
+            z-index: 10;
         }
         #logo {
             margin: 10px 0;
@@ -29,11 +36,12 @@
         <div class="container-fluid text-center color-bg1" style="width: 100%">
             <img id="logo" src="../img/logo1.png" alt="logo" width="120">
         </div>
-        <div id="navbar" class="text-center" style="margin-top: 5px;">
+        <div style="width: 100%; height: 5px; background-color: #ffffff;"></div>
+        <div id="navbar" class="text-center">
             <a href="#" class="menu">알쓸맥잡</a>
-            <a href="#" class="menu">맥주의 효능</a>
-            <a href="#" class="menu">주문하기</a>
-            <a href="../src/eventpage.html" class="menu">이벤트</a>
+            <a href="../src/detail_beer.html" class="menu">맥주별상세페이지</a>
+            <a href="../src/order.html" class="menu">주문하기</a>
+            <a href="../src/event.html" class="menu">이벤트</a>
             <a href="#" class="menu">마이페이지</a>
         </div>
     </div>

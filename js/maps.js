@@ -1,3 +1,7 @@
+const seletedConveni1 = document.querySelector('#seletedConveni1');
+const seletedConveni2 = document.querySelector('#seletedConveni2');
+let isSeleted = false;
+
 /* Set map */
 function initMap() {
     // 충북대 36.6283933, 127.459223
@@ -44,6 +48,7 @@ function clickedStore(n) {
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 15,
         center: base,
+        scrollwheel: true,
     });
     const infowindow = new google.maps.InfoWindow();
     const icons = ["../img/cu.png", "../img/gs25.png", "../img/seven.png"]
@@ -81,7 +86,11 @@ function clickedStore(n) {
 }
 
 /* Create markerCollection */
+let i = 0;
 function createMarker(place, map, infowindow, icon) {
+    if(place.plus_code.global_code == "8Q89JFG3+X4" && place.name == "CU store") {
+        return null;
+    }
     let marker = new google.maps.Marker({
         map: map,
         position: place.geometry.location,
@@ -150,13 +159,15 @@ function createListItem(id, name, address, isOpen){
     item.append(p[3]);
 
     // to Button
-    item.className = 'btn text-left';
+    item.className = 'btn text-left store-item';
     item.setAttribute('type', 'button');
 
     // Event
     item.addEventListener('click', function() {
         const marker = markerCollection[id];
         markerActivity(marker);
+        seletedConveni1.innerHTML = name;
+        seletedConveni2.innerHTML = name;
     });
 
     // Add to table

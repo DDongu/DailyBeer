@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오늘의 맥주 - 로그인</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  
+  <style>
+
+    @font-face { /* 충북대70주년체 Regular 적용 */
+      font-family: "CBNU_Regular";
+      src: url("../font/충북대학교Regular.ttf") format("truetype");
+      font-weight: normal;
+    } /* 이후 "CBNU_Regular"으로 폰트 적용 가능 */
+
+    @font-face { /* 충북대70주년체 Bold 적용 */
+      font-family: "CBNU_Bold";
+      src: url("../font/충북대학교Bold.ttf") format("truetype");
+      font-weight: normal;
+    } /* 이후 "CBNU_Bold"으로 폰트 적용 가능 */
+
+    body {
+      font-family: "CBNU_Regular";
+      margin: 0px;
+      width: 100%;
+    }
+
+    .input-form {
+      margin-top: 130px;
+      padding: 32px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.15)
+    }
+    
+    img {
+      width: 150px;
+    }
+    #divLine1 {
+      width: 100%;
+    }
+    .login-form button {
+      width: 100%;
+      padding: 3px 5px;
+      background-color: #FFC013;
+      border-radius: 30px;
+      border: 1px solid #FFC013;
+    }
+    .msg1 {
+      font-size: 20px;
+      font-family: "CBNU_Bold";
+    }
+    .msg2 {
+      font-size: 25px;
+      font-weight: bold;
+      color: #FFC013;
+    }
+    .msg2:hover {
+      color: #dca614;
+    }
+    footer {      
+      height: 8vh;
+      background-color:#ebebeb;
+      opacity: 80%;
+      position: absolute;
+      bottom: 0px;
+      margin: 0px;
+      width: 100%;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="input-form-backgroud">
+      <div class="input-form mx-auto text-center col-sm-5">
+        <div><img src="../img/logo2.png"></div>
+        <div class="mb-3"><img id="divLine1" src="../img/division.png"></div>
+        <form class="login-form" novalidate>
+          <div class="mb-3">
+            <input type="email" class="form-control" id="email" placeholder="이메일을 입력해주세요.">
+          </div>
+          <div class="mb-3">
+            <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력해주세요.">
+          </div>
+          <button type="button">로그인</button>
+    </div>
+  </div>
+  <div class="text-center">
+    <div class="mt-5 msg1">오늘 하루를 색다르게 남기고 싶다면?</div>
+    <a href="./register.html" class="m-4 msg2">회원가입 하러 가기</a>
+  </div>
+  </div>
+  <!-- footer -->
+  <footer class="text-center">
+    <p>&copy; 2023 오늘의 맥주 <br>아사모</p> 
+  </footer>
+  <script>
+
+    window.addEventListener('load', () => {
+      var forms = document.getElementsByClassName('login-form');
+
+      Array.prototype.filter.call(forms, (form) => {
+        form.addEventListener('submit', function (event) {
+        
+
+          
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  </script>
+</body>
+
+</html>

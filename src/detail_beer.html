@@ -5,11 +5,111 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="../css/common.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>Document</title>
+    <title>:: DailyBeer ::</title>
+    <style> 
+        body {
+            background-color: black !important;
+            color: white !important;
+        }
+        #title {
+            text-align: center;
+            font-size: 50px;
+            font-weight: bold;
+            margin-top: 40px;
+        }
+        #footer {
+            clear: left;
+        }
+        .article {
+            clear: left;
+            height: 600px;
+            width: 1200px;
+            margin: auto;
+            margin-bottom: 120px;
+            opacity: 0;
+        }
+        .imgdiv {
+            float: left;
+            width: 400px;
+            height: 500px;
+            margin-right: 40px;
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+        }
+        .article>span {
+            clear: left;
+        }
+        .article p {
+            font-size: 25px;
+        }
+        .appearEffect {
+            background-color: aqua;
+        }
+        .fade-in {
+            opacity: 1;
+            transition: opacity 0.6s ease-in;
+        }
+    </style>
 </head>
 <body>
-    <script src="./js/common.js"></script>
+    <div id="content">
+        <div><p id="title">맥주의 역사</p></div>
+        <br>
+        <div id="article1" class="article">
+            <div class="imgdiv" style="background-image: url('../img/benefit1.png');"></div>
+            <span><br><br><p>맥주는 고대 문명에서 농업의 번창함을 표현한 인류학적 증거라는 견해가 있다.
+                <br>맥주는 기원전 3000년부터 양조되어, 세계에서 가장 오래된 알코올 음료로 알려져 있다. 수메르, 아시리아, 바빌로니아, 이집트 등지에서 보리와 밀을 경작하면서 맥주의 양조가 발달되었다. 함무라비 법전에서도 맥주에 관한 법률이 나와 있다
+            </p></span>
+        </div>
+        <div id="article2" class="article">
+            <div class="imgdiv" style="background-image: url('../img/beer1.png');"></div>
+            <span><br><br><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident unde in aliquid minus pariatur tenetur eos fuga dolore culpa dolores consequatur, sed recusandae repudiandae fugit ut nam, laudantium blanditiis perferendis.
+            </p></span>
+        </div>
+        <div id="article3" class="article">
+            <div class="imgdiv" style="background-image: url('../img/beer12.png');"></div>
+            <span><br><br><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident unde in aliquid minus pariatur tenetur eos fuga dolore culpa dolores consequatur, sed recusandae repudiandae fugit ut nam, laudantium blanditiis perferendis.
+            </p></span>
+        </div>
+        <div id="article4" class="article">
+            <div class="imgdiv" style="background-image: url('../img/beer15.png');"></div>
+            <span><br><br><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident unde in aliquid minus pariatur tenetur eos fuga dolore culpa dolores consequatur, sed recusandae repudiandae fugit ut nam, laudantium blanditiis perferendis.
+            </p></span>
+        </div>
+        
+    </div>
+    <script>
+        // 요소들을 모두 가져오기
+        const articles = document.querySelectorAll('.article');
+
+        // 스크롤 이벤트 핸들러 함수
+        function scrollHandler() {
+            articles.forEach((article) => {
+                // 요소가 화면에 보이는지 확인
+                const articleTop = article.getBoundingClientRect().top;
+                const articleBottom = article.getBoundingClientRect().bottom;
+
+                // 요소가 화면에 진입할 때 애니메이션 클래스 추가
+                if (articleTop < window.innerHeight && articleBottom >= 0) {
+                article.classList.add('fade-in');
+                console.log('fade-in');
+                } else {
+                // 요소가 화면을 벗어날 때 애니메이션 클래스 제거
+                article.classList.remove('fade-in');
+                console.log('fade-out');    
+                }
+            });
+        }
+
+        // 스크롤 이벤트에 scrollHandler 함수 연결
+        window.addEventListener('scroll', scrollHandler);
+
+        // 초기 로딩 시에도 요소들의 상태 확인
+        window.addEventListener('load', scrollHandler);
+    </script>
+    <script src="../js/common.js"></script>
 </body>
 </html>

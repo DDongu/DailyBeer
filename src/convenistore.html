@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/common.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>Document</title>
     <style>
         #header>p {
             font-size: 30px;
@@ -41,6 +34,14 @@
         #storelist-box p {
             margin: 4px 0;
         }
+        #seletedConveni1 {
+            position: absolute;
+            right: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        #seletedConveni2 {
+        }
         span {
             display: inline-block;
             height: fit-content;
@@ -50,23 +51,31 @@
             font-weight: bold;
         }
         .store-btn {
+            border: none;
+            background-color: transparent;
             font-size: 18px !important;
             font-weight: bold !important;
-            margin: 0 10px;
+            margin: 0 25px 20px 25px;
+        }
+        .info-selected-store {
+            display: inline-block;
+            width: 49%;
+            font-size: 25px;
+            font-weight: bold;
+            margin: 15px 0;
+            align-items: baseline;
         }
     </style>
 </head>
 <body>
     <div>
-        <br>
-        <div class="text-center" id="header"><p>주변 편의점 찾기</p></div>
-        <br>
-        <div class="text-center">
+        <div class="text-center" style="position: relative;">
+            <div id="seletedConveni1"></div>
             <span>
                 <div>
-                    <span type="button" class="store-btn btn" onclick="clickedStore(0)">CU</span>
-                    <span type="button" class="store-btn btn" onclick="clickedStore(1)">GS25</span>
-                    <span type="button" class="store-btn btn" onclick="clickedStore(2)">7ELEVEN</span>
+                    <button class="store-btn" onclick="clickedStore(0)">CU</button>
+                    <button class="store-btn" onclick="clickedStore(1)">GS25</button>
+                    <button class="store-btn" onclick="clickedStore(2)">7ELEVEN</button>
                 </div>
                 <div style="display: inline-block" id="storelist-box">
                     <table>
@@ -74,12 +83,28 @@
                 </div>
             </span>
             <span><div style="display: inline-block" id="map"></div></span>
+            <div style="width: 1200px; margin:auto; margin-top: 5px; border-bottom: 1px solid #d6d6d6;">
+                <div class="info-selected-store" style="text-align: start;">선택된 편의점 : </div>
+                <div id="seletedConveni2" class="info-selected-store" style="text-align: end;"></div>
+            </div>
         </div>
-        <br>
     </div>
-
-    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaRhR01rw3B2WxASU6zdOQ8wg-9Kpo024&libraries=places&callback=initMap"></script>
+    <script>
+        const store_btn = document.querySelectorAll('.store-btn');
+        store_btn.forEach((btn, i) => {
+            btn.addEventListener('click', () => {
+                store_btn.forEach((btn, j) => {
+                    if (i == j) {
+                        btn.style.borderBottom = '2px solid #000000'; 
+                    } else {
+                        btn.style.borderBottom = 'none'; 
+                    }
+                });
+            });
+        });
+        store_btn[0].click();
+    </script>
+    <script src="../js/api.js"></script>
     <script src="../js/maps.js"></script>
-    <script src="../js/common.js"></script>
 </body>
 </html>
