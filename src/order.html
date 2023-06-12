@@ -83,17 +83,6 @@
             margin: 70px 0 100px 0;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 일반적인 그림자 효과 */
         }
-        #updownBtn {
-            position: fixed;
-            right: 40px;
-            bottom: 50px;
-        }
-        #updownBtn button {
-            text-align: center;
-            font-weight: bold;
-            background-color: transparent;
-            border: none;
-        }
         .like {
             width: 30px;
         }
@@ -165,32 +154,6 @@
     <div id="orderContainer" class="text-center">
         <table id="orderTable"></table>
     </div>
-    <div id="updownBtn">
-        <button onclick="Up()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#FFC013" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
-                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
-            </svg>
-        </button>
-        <br>
-        <button onclick="Down()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#FFC013" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-            </svg>
-        </button>
-
-    </div>
-    <script>
-        function Up() {
-            const bodyElement = document.body;
-            const htmlElement = document.documentElement;
-            bodyElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            htmlElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
-        }
-        function Down() {
-          const headerElement = document.getElementById('go_shopping_btn');
-          headerElement.scrollIntoView({ behavior: 'smooth' });
-        }
-    </script>
     <script src="../js/common.js"></script>
     <script src="../js/order.js"></script>
 </body>

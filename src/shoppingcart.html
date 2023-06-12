@@ -160,6 +160,13 @@
         <br>
         <p style="font-size: 30px; font-weight: bold; text-align: center; margin:0;">편의점</p>
         <div id="mapContainer"></div>
+
+
+        <div style="width: 1200px; margin:auto; margin-top: 5px; border-bottom: 1px solid #d6d6d6;">
+            <div class="info-selected-store" style="text-align: start;">선택된 편의점 : </div>
+            <div id="seletedConveni2" class="info-selected-store" style="text-align: end;"></div>
+        </div>
+
         <div class="text-center">
             <button id="orderBtn" type="button" class="btn btn-dark">주문하기</button>
         </div>
@@ -200,6 +207,20 @@
                     break;
             }
         }
+
+        const store_btn = document.querySelectorAll('.store-btn');
+        store_btn.forEach((btn, i) => {
+            btn.addEventListener('click', () => {
+                store_btn.forEach((btn, j) => {
+                    if (i == j) {
+                        btn.style.borderBottom = '2px solid #000000'; 
+                    } else {
+                        btn.style.borderBottom = 'none'; 
+                    }
+                });
+            });
+        });
+        store_btn[0].click();
     </script>
     <script src="../js/shoppingcart.js"></script>
     <script src="../js/common.js"></script>

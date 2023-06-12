@@ -83,27 +83,8 @@
                 </div>
             </span>
             <span><div style="display: inline-block" id="map"></div></span>
-            <div style="width: 1200px; margin:auto; margin-top: 5px; border-bottom: 1px solid #d6d6d6;">
-                <div class="info-selected-store" style="text-align: start;">선택된 편의점 : </div>
-                <div id="seletedConveni2" class="info-selected-store" style="text-align: end;"></div>
-            </div>
         </div>
     </div>
-    <script>
-        const store_btn = document.querySelectorAll('.store-btn');
-        store_btn.forEach((btn, i) => {
-            btn.addEventListener('click', () => {
-                store_btn.forEach((btn, j) => {
-                    if (i == j) {
-                        btn.style.borderBottom = '2px solid #000000'; 
-                    } else {
-                        btn.style.borderBottom = 'none'; 
-                    }
-                });
-            });
-        });
-        store_btn[0].click();
-    </script>
     <script src="../js/api.js"></script>
     <script src="../js/maps.js"></script>
 </body>
