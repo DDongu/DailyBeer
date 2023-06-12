@@ -55,11 +55,12 @@ body {
   margin: 20px auto;
 }
 
-.btn {
-  margin: 10px;
-  top: 400px;
+.btn1 {
+  margin: 100px auto 0;
 }
-
+.btn2 {
+  margin: 30px;
+}
 .card figure {
   margin: 0;
   display: block;

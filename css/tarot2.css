@@ -1,16 +1,25 @@
-/* first page */
-.container-fluid {
-}
-#firstPage {
-  height: 100vh;
-  background-color: thistle;
-}
-.logo {
-  text-align: center;
+@font-face { /* 충북대70주년체 Regular 적용 */
+  font-family: "CBNU_Regular";
+  src: url("../font/충북대학교Regular.ttf") format("truetype");
+  font-weight: normal;
+} /* 이후 "CBNU_Regular"으로 폰트 적용 가능 */
+
+@font-face { /* 충북대70주년체 Bold 적용 */
+  font-family: "CBNU_Bold";
+  src: url("../font/충북대학교Bold.ttf") format("truetype");
+  font-weight: normal;
+} /* 이후 "CBNU_Bold"으로 폰트 적용 가능 */
+
+body {
+
 
 }
+/* first page */
+.logo {
+  text-align: center;
+}
 .logo-img {
-  width: 500px;
+  width: 470px;
   text-align: center;
   margin: 15px;
 }
@@ -22,21 +31,79 @@
   width: 200px;
   height: 300px;
   margin: 15px;
-}
-#card1 {
-  float: left;
-}
-#card2 {
-  float: left;
+  border-radius: 10px;
+  box-shadow: 0 0 30px #4A4E69;
 
 }
-.msg {
+
+.descr {
   display: inline-block;
   text-align: center;
+  font-size: 15px;
 }
-#msg1 {
-  margin: 5vh auto;
-
+#descr1 {
+  margin: 3vh auto;
+  width: 50%;
+  font-weight: bold;
 }
+/* 두둥실 */ 
+#arrow{
+  opacity: 60%;
+  height: 170px;
+  position:absolute; 
+  bottom:100px;
+  right:150px;
+  animation:ani 1.5s infinite alternate;  
+}
+@keyframes ani{
+0%{transform:translate(0,0);}
+100%{transform:translate(0,50px);}
+}  
 
 /* second page */
+.container-fluid {
+  width: 60%;
+}
+.p1 {
+  font-family: "CBNU_Bold";
+  font-size: 50px;
+  margin: 2vh auto 3vh;
+}
+
+.p2 {
+  font-family: "CBNU_Regular";
+  font-size: 22px;
+  margin: 1vh auto 2vh;
+}
+.beerImg {
+  width: 200px;
+}
+#beerName {
+  font-family: "CBNU_Bold";
+  font-size: 30px;
+  margin: 100px auto 40px;
+  text-decoration: wavy underline #ffc658 3px;
+}
+#descr2 {
+  font-family: "CBNU_Regular";
+  margin: 0 auto 50px;
+  font-size: 20px;
+}
+.left {
+  width: 45%;
+  float: left;
+  border: solid 5px #ffc658;
+  margin: 5px;
+
+}
+.right {
+  width: 50%;
+  float: left;
+  margin: 10px;
+
+}
+.btn {
+  background-color: #ffc658;
+  color: white;
+  font-family: "CBNU_Regular";
+}

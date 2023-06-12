@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .b_img {
+            height: 200px;
+            padding: 10px;
+
+        }
+        #img_div {
+            position: relative;
+        }
+        .element {
+            border: 1px lightgray solid;
+            margin: 5px;
+            padding: 10px;
+            width: 250px;
+            height: 320px;
+        }
+        .info_container {
+            opacity: 0.8;
+            color: black;
+        }
+        hr {
+            margin: 0px 0px 5px 0px !important;
+        }
+        .b_name {
+            font-size: 20px;
+            padding: 0px;
+            margin: 0px;
+        }
+        .b_nation {
+            margin: 0px;
+            font-size: 15px;
+            color: gray;
+        }
+        .b_slogan {
+            font-size: 10px;
+            color: rgb(161, 161, 161);
+        }
+        td .beer:hover {
+            border: #FFC013 1px solid;
+        }
+        .nation {
+            width: 30px;
+        }
+        #data-container {
+            margin: 0px auto 0px auto;
+        }
+        #headline {
+            margin: 20px 0px 20px 0px;
+            background-color: #FFC013;
+            
+            padding: 7px;
+            color: black;
+        }
+        table td:hover {
+            background-color: rgb(255, 239, 170);
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/common.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).on('click', '.element', function() {
+                window.location.href = "/src/one_beer_detail.html";
+        });
+    </script>
+    <title>Beer_List</title>
+</head>
+<body>
+    <!--Jquery 받아서 보여줄 div 선언!-->
+    <h4 id="headline" class="text-center">맥주별 상세정보 조회하기</h4>
+    <div class="body_div container text-center">
+        <table id="data-container"></table>
+        
+    </div>
+    <script>
+        $(document).ready(function() {
+            $.getJSON('../dataToJSon.js', function(data) {
+                var output = '';
+                var b_n = 1;
+                for (var i = 0; i < data.length; i++) {
+                    var img_url = "../img/beer_transparent/beer"+b_n+'.png';
+                    var nn = i%6;
+                    if (i%4 == 0) {output += "<tr>";}
+                    output+='<td>'+
+                                '<div class="element text-left">'+
+                                    '<div class="img_div text-center">'+
+                                        '<p class="rank color-bg1"><span></span></p>'+
+                                        '<img class="b_img" src=\"'+img_url+'\" alt="beer">'+
+                                    '</div>'+
+                                    '<hr>'+
+                                    '<div class="row">'+
+                                        '<div class="col-sm-9">'+
+                                            '<p class="b_name">'+data[i].name+'</p>'+
+                                            '<p class="b_nation">'+data[i].country+'</p>'+
+                                        '</div>'+
+                                        '<div class="col-sm-3">'+
+                                            '<img class="nation" src="../img/nation'+nn+'.png" alt="nation">'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<p class="b_slogan">'+data[i].slogan+'</p>'+             
+                                '</div>'+
+                            '</td>';
+                    if (i%4 == 3) {
+                        output += "</tr>";
+                        $('#data-container').append(output);
+                        output = '';
+                    }
+                    if (b_n == 22) {
+                        $('#data-container').append(output);
+                    }
+                    b_n++;
+                }
+            });
+        });
+        
+    </script>
+
+    <script src="../js/common.js"></script>
+</body>
+</html>

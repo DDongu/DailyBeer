@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입 화면 샘플 - Bootstrap</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="../css/login.css">
+  
+  <style>
+    body {
+      min-height: 100vh;
+      background: linear-gradient(to top right, #FFF6DD 0%, #FFC013 100%);
+    }
+
+    .input-form {
+      max-width: 680px;
+      margin-top: 80px;
+      padding: 32px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="input-form-backgroud row">
+      <div class="input-form col-md-12 mx-auto">
+        <h4 class="mb-3">회원가입</h4>
+        <form class="validation-form" novalidate>
+          <div class="mb-3">
+
+              <label for="name">이름</label>
+              <input type="text" class="form-control" id="name" placeholder="" value="" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="email">이메일</label>
+            <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="password">비밀번호</label>
+            <input type="password" class="form-control" id="password" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="birthDate">생일</label>
+            <input type="date" class="form-control" id="birthDate" required>
+            <div class="invalid-feedback">
+              20세 미만은 가입할 수 없습니다.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="address">주소</label>
+            <input type="text" class="form-control" id="address" placeholder="(선택) 충북 청주시 서원구 충대로 1">
+          </div>
+
+          <hr class="mb-4">
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="aggrement" required>
+            <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
+          </div>
+          <div class="mb-4"></div>
+          <button class="btn btn-primary btn-lg btn-block" type="submit">가입 완료</button>
+          <div class="mt-1 text-right"><a href="./login.html">로그인 페이지로 이동하기</a></div>
+        </form>
+      </div>
+    </div>
+    <footer class="my-3 text-center text-small">
+      <p class="mb-1">&copy; 2023 오늘의 맥주 <br>아사모</p>
+    </footer>
+  </div>
+  <script>
+    // 오늘 날짜로 기본값 설정
+    document.getElementById('birthDate').value= new Date().toISOString().slice(0, 10);
+
+
+    window.addEventListener('load', () => {
+      var forms = document.getElementsByClassName('validation-form');
+
+      Array.prototype.filter.call(forms, (form) => {
+        form.addEventListener('submit', function (event) {
+          /* 나이 검사 */
+          var birthDateInput = document.getElementById('birthDate');
+          var birthDate = new Date(birthDateInput.value);
+          console.log(birthDate)//
+          var currentDate = new Date();
+          if (currentDate.getFullYear() - birthDate.getFullYear() < 19) {
+          console.log("age failed");
+          birthDateInput.setCustomValidity('20세 미만은 가입할 수 없습니다.');
+          }
+
+          
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  </script>
+</body>
+
+</html>

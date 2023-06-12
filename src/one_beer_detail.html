@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        #b_info {
+            list-style-type: none;
+            margin: 40px 0px 0px 0px;
+            padding: 0px;
+            width: 400px;
+        }
+        #b_info li * {
+            display: inline;
+
+        }
+        #top_logo {
+            height: 70px;
+            margin: 40px 0px 40px;
+        }
+        #b_img {
+            position: absolute;
+            opacity: 0;
+            left: auto;
+            right: auto ;
+            width: 180px;
+            z-index: 1;
+        }
+        #map {      
+            opacity: 0;
+            width: 800px;
+        }
+        #nation {
+            margin-top: 5px;
+            width: 70px;
+        }
+        .col-sm-4 {
+            padding-left: 200px;
+            background-color: white;
+        }
+        #pie {
+            background-color: transparent;
+        }
+        #pie div div div svg g text {
+            font-size: 14px !important;
+        }
+        #description {
+            margin: 0px auto 0px auto 0px;
+            width: auto;
+        }
+        #description h5 {
+            line-height: 200%;
+            font-size: 18px;
+            vertical-align: middle;
+        }
+        #detail {
+            opacity: 0;
+        }
+        .a {
+            padding: 3px 0px 0px 0px;
+            color: gray;
+            font-size: 13px;
+        }
+        #b_horse {
+            width: 200px
+        }
+    </style>
+    <meta charset="U    TF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/common.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script>
+    <script type = "text/javascript">
+        google.charts.load('current', {packages: ['corechart']});     
+    </script>
+    <title>My Page</title>
+</head>
+<body>
+    <script>
+        $(document).ready(function() {
+            $.getJSON('../dataToJSon.js', function(data) {
+                let i = 7;
+                var name = data[i].name;
+                var slogan = data[i].slogan;
+                var country = data[i].country;
+                var year = data[i].year;
+                var degree = data[i].degree;
+                var char = data[i].char;
+                var info = '';
+                info = '<li><h1>'+name+'</h1></li>'+
+                        '<li><h5>'+slogan+'</h5></li>'+
+                        '<hr>'+
+                        '<li class="a"><h5>'+'생산국가 : '+ country+'</h5></li>'+
+                        '<li class="a"><h5>'+'설립연도 : '+year+'</h5></li>'+
+                        '<li class="a"><h5>'+'도수 : '+degree+'</h5></li>';
+                $("#info_sum").html(info);
+                var description = '<h5>'+char+'</h5>';
+                $("#description").html(description);
+            });
+        });
+    </script>
+    <div class="container text-center">
+        <div class="top">
+            <img id="top_logo" src="../img/budweiserlogo.jpeg" alt="logo">
+        </div>
+        
+        <div class="row">
+            <div class="col-sm-8">
+                <img id="b_img" src="../img/beer_transparent/beer8.png" alt="">
+                <img id="map" src="../img/USA_Flag_Map.png" alt="">
+            </div>
+            <div class="col-sm-4 text-left" id="detail">
+                <ul id="b_info">
+                    <div class="row">
+                        <div id="info_sum" class="col-sm-8"></div>
+                        <div class="col-sm-4"><img id="nation" src="../img/nation3.png" alt="nation"></div>
+                    </div>
+                    <div>
+                        <div class="a" style="margin-top: 10px; background-color: transparent;"><h5>주요 특징</h5></div>
+                        <div id = "pie"></div>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <div>
+        <br>
+        <br>
+
+        <div class="text-center">
+            <h2>브랜드 스토리</h2>
+            <hr>
+            <div class="row">
+                <div class="col-sm-5">
+                    <img src="../img/bud-horse.png" alt="horse" style="width: 400px;">
+                </div>
+                <div class="col-sm-7">
+                    <div id="description" class="text-left"></div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="text-center">
+            <h2>브랜드 영상</h2>
+            <hr>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div>
+                        <iframe width="540" height="315" src="https://www.youtube.com/embed/lMYDQlF2ml0" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div>
+                        <iframe width="540" height="315" src="https://www.youtube.com/embed/mCfyV5xoDAg" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+    </div>
+
+    <script language = "JavaScript">
+        function drawChart() {
+           // Define the chart to be drawn.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Browser');
+        data.addColumn('number', 'Percentage');
+        data.addRows([
+            ['청량감', 45.0],
+            ['탄산감', 26.8],
+            ['부드러움', 12.8],
+            ['구수함', 8.5],
+            ['강함', 6.2],
+            ['가벼움', 0.7]
+        ]);
+            
+        // Set chart options
+        var options = {
+            'title': "주요 특징",
+            width :300,
+            height : 200,
+            colors: ['#850005', '#B9001b', '#D22124', '#dd2a2c', '#e36673', '#eb939c'],
+            pieHole: 0.3,
+            legend : 'none',
+            chartArea: { left: 0, top: 0, right: 0, bottom: 0 }
+        };
+
+        // Instantiate and draw the chart.
+        var chart = new google.visualization.PieChart(document.getElementById('pie'));
+        chart.draw(data, options);
+        }
+        google.charts.setOnLoadCallback(drawChart);
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            var map = $("#map");
+            var b_img = $("#b_img");
+            var detail = $("#detail");
+
+            b_img
+                .animate({opacity: "1"}, "slow")
+                .animate({left: '580px'})
+                .queue(function(next) {
+                    map.animate({opacity:"0.3"}, "slow")
+                    detail.animate({opacity:"1"}, "slow")
+                })
+        });
+    </script>
+
+    <script src="../js/common.js"></script>
+</body>
+</html>

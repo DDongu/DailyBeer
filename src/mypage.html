@@ -1,15 +1,411 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>        
+        * {
+        box-sizing: border-box;
+        }
+        #avatar {
+            width: 200px;
+            border: solid 15px #f6c346;
+        }
+        #avatar_edit_btn {
+            border: none;
+            background-color: transparent;
+            position: absolute;
+            right: 5px;
+            bottom: 5px;
+        }
+        li {
+            margin: 0px 0px 10px 0px;
+            padding: 0px;
+        }
+        ul {
+            list-style-type: none;
+            margin: 0px;
+            padding: 0px;
+        }
+        #b_img {
+            width: 200px;
+        }
+        #like {
+            width: 30px;
+        }
+        #buy {
+            width: 30px;
+        }
+        .beer_btn {
+            box-shadow: none;
+
+            background-color: transparent;
+            border: none;
+        }
+        .beer-btn:focus {
+            border : none;
+            outline : none;
+            box-shadow: none;
+        }
+        .btn_div {
+            position : absolute;
+            bottom: 10px;
+            right : 5px;
+            
+        }
+        #img_div {
+            position: relative;
+        }
+        .beer {
+            width: 230px;
+        }
+        .info_container {
+            background-color: black;
+            opacity: 0.8;
+            color: white;
+            padding : 7px;
+        }
+        .rank {
+            display: inline;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            padding: 5px 10px 5px 10px;
+            margin: 0;
+            color: white;
+            opacity: 0.7;
+        }
+        .b_name {
+            font-size: 25px;
+            padding: 0px;
+            margin: 0px;
+        }
+        .b_desc {
+            margin: 0px;
+            font-size: 18px;
+        }
+        .b_price {
+            margin: 0px;
+            text-align: right;
+            color: #FFC013;
+        }
+        td .beer:hover {
+            border: #FFC013 1px solid;
+        }
+        .modal {
+            width: 500px !important;
+            height: 270px !important;
+            position: absolute !important;
+            top: 179px !important; /* Adjust the top position */
+            left: 442px !important; /* Adjust the left position */
+            z-index: 9999;
+            background-color: white;
+            border: #FFC013 2px solid;
+            }
+
+
+        .modal-content {
+            width: 400px;
+            height: 300px;
+            padding: 20px;
+            color: black;
+        }
+
+        .candidate {
+            width: 70px;
+            border: #FFC013 1px solid;
+        }
+        .b_img {
+            height: 200px;
+            padding: 10px;
+
+        }
+        #img_div {
+            position: relative;
+        }
+        .s_element {
+            border: 1px lightgray solid;
+            margin: 5px;
+            padding: 10px;
+            width: 250px;
+            height: 220px;
+        }
+        .element {
+            border: 1px lightgray solid;
+            margin: 5px;
+            padding: 10px;
+            width: 250px;
+            height: 320px;
+        }
+        .info_container {
+            opacity: 0.8;
+            color: black;
+        }
+        hr {
+            margin: 0px 0px 5px 0px !important;
+        }
+        .b_name {
+            font-size: 20px;
+            padding: 0px;
+            margin: 0px;
+        }
+        .b_nation {
+            margin: 0px;
+            font-size: 15px;
+            color: gray;
+        }
+        .b_slogan {
+            font-size: 10px;
+            color: rgb(161, 161, 161);
+        }
+        td .beer:hover {
+            border: #FFC013 1px solid;
+        }
+        .nation {
+            width: 30px;
+        }
+        #data-container {
+            margin: 0px auto 0px auto;
+        }
+        #headline {
+            margin: 20px 0px 20px 0px;
+            background-color: #FFC013;
+            
+            padding: 7px;
+            color: black;
+        }
+        .btn_heart {
+            width: 30px;
+        }
+        .btn_heart_full {
+            width: 30px;
+            position: absolute;
+            
+        }
+        .b_h {
+            position: absolute;
+            right: 5px;
+            bottom: 10px;
+            box-shadow: none;
+            background-color: transparent;
+            border: none;
+        }
+        .img_div {
+            position: relative;
+        }
+        #snack-container {
+            margin : 0 auto ;
+        }
+        .key {
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .val {
+            columns: gray;
+            padding :5px 10px 5px 0px;
+        }
+    </style>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="../css/common.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>Document</title>
+    <title>My Page</title>
 </head>
 <body>
-    <script src="./js/common.js"></script>
+
+    <br>
+    <br>
+    <div class="container text-center">
+        <div class="row">
+            <div id="profile_div" class="col-sm-3 text-right">
+                <img class="rounded-circle" id="avatar" src="../img/avatar/avatar1.png" alt="avatar">
+                <button id="avatar_edit_btn"><img class="rounded-circle" src="../img/avatar/edit.png" alt="edit" style="width: 50px; border: 1px solid #daa000;"></button>               
+            </div>
+            <div class="col-sm-8 text-left" style=" vertical-align: middle;">
+                    <h3>마이페이지</h3>
+                    <hr>
+                    <table>
+                        <tr>
+                            <td class="key">아이디 </td>
+                            <td  class="val">User</td>
+                        </tr>
+                        <tr>
+                            <td class="key">e-mail </td>
+                            <td class="val">User@cbnu.ac.kr</td>
+                        </tr>
+                        <tr>
+                            <td class="key">닉네임 </td>
+                            <td class="val">User</td>
+                        </tr>
+                        <tr>
+                            <td class="key">주소 </td>
+                            <td class="val">청주시 서원구 개신동 1 충북대학교</td>
+                        </tr>
+                    </table>
+            </div>
+        </div>
+        <br>
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <caption style="text-align :center; font-weight: 700; color: black;">프로필 변경하기</caption>
+
+                <table id="mytable" style="caption-side: top;">
+                </table>
+                <br>
+                <input type="button" id="exit" value="돌아가기" style="color:black; background-color: #FFC013; border: 2px solid #c59100;">
+            </div>
+        </div>        
+        <script>           
+            function makeProduct(n) {
+                var img_url = "../img/avatar/avatar"+n+".png";
+                
+                const a = document.createElement("img");
+                a.className = 'candidate rounded-circle';
+                a.src = img_url;
+                a.alt = "avatar"
+                console
+                return a;
+            }
+            function makeProductTable() {
+                const tab = document.getElementById('mytable');
+                var i = 1;
+                var row = 2;
+                var col = 5;
+                for(var k=0; k<row; k++) {
+                    var tr = document.createElement('tr');
+                    for(var j=0; j<col; j++) {
+                        var td = document.createElement('td');                            
+                        var el = makeProduct(i);
+                        console.log(el);
+                        td.appendChild(el);                        
+                        tr.appendChild(td);
+                        i++;
+                    }
+                    tab.appendChild(tr);
+                }
+            }
+            makeProductTable();
+            function changeURL (n) {
+                var img_url = "../img/avatar/avatar"+n+".png";
+                var avatar = document.getElementById("avatar");
+                avatar.src = img_url;
+            };
+            var item = document.getElementsByClassName("candidate");
+
+            item[0].addEventListener("click", function() {changeURL(1)});
+            item[1].addEventListener("click", function() {changeURL(2)});
+            item[2].addEventListener("click", function() {changeURL(3)});
+            item[3].addEventListener("click", function() {changeURL(4)});
+            item[4].addEventListener("click", function() {changeURL(5)});
+            item[5].addEventListener("click", function() {changeURL(6)});
+            item[6].addEventListener("click", function() {changeURL(7)});
+            item[7].addEventListener("click", function() {changeURL(8)});
+            item[8].addEventListener("click", function() {changeURL(9)});
+            item[9].addEventListener("click", function() {changeURL(10)});
+
+
+            $(document).ready(function() {
+            $('#avatar_edit_btn').click(function() {
+                $('#modal').fadeIn();
+            });
+
+            $('#modal').click(function(e) {
+                if ($(e.target).is('.modal-content')) {
+                e.stopPropagation();
+                } else {
+                    $('#modal').fadeOut();
+                }
+            });
+        });
+        </script>      
+        <div sclass="body_div container text-center">
+        <h3>회원님이 즐겨찾기한 맥주</h3>
+        <hr>
+        <div>
+            <table id="data-container"></table>
+        </div>
+        <script>
+            $(document).ready(function() {
+            $.getJSON('../dataToJSon.js', function(data) {
+                var output = '';
+                var b_n = 6;
+                for (var i = 5; i < 10; i++) {
+                    var img_url = "../img/beer_transparent/beer"+b_n+'.png';
+                    var nn = i%6;
+                    if (i%4 == 2) {output += "<tr>";}
+                    output+='<td>'+
+                                '<div class="element text-left">'+
+                                    '<div class="img_div text-center">'+
+                                        '<p class="rank color-bg1"><span></span></p>'+
+                                        '<img class="b_img" src=\"'+img_url+'\" alt="beer">'+
+                                        '<button class="b_h"><img src="../img/btn_heart_full.png" class="btn_heart" alt="btn_heart"></button>'+
+                                    '</div>'+
+                                    '<hr>'+
+                                    '<div class="row">'+
+                                        '<div class="col-sm-9">'+
+                                            '<p class="b_name">'+data[i].name+'</p>'+
+                                            '<p class="b_nation">'+data[i].country+'</p>'+
+                                        '</div>'+
+                                        '<div class="col-sm-3">'+
+                                            '<img class="nation" src="../img/nation'+nn+'.png" alt="nation">'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<p class="b_slogan">'+data[i].slogan+'</p>'+             
+                                '</div>'+
+                            '</td>';
+                    b_n++;
+                }
+                $('#data-container').append(output);
+
+            });
+        });
+        $(document).on('click', '.b_img', function() {
+                window.location.href = "/src/one_beer_detail.html";
+        });
+        $(document).on('click', '.btn_heart', function() {
+            if(this.src.endsWith('btn_heart_full.png')) {
+                this.src = '../img/btn_heart.png';
+            }
+            else {
+                this.src = '../img/btn_heart_full.png';
+            }
+        });
+        </script>
+        <br>
+        <h3>회원님이 즐겨찾기한 간식</h3>
+        <hr>
+        <div>
+            <table id="snack-container"></table>
+            
+        </div>
+        <script>
+            $(document).ready(function() {
+            $.getJSON('../dataToJSon.js', function(data) {
+                var output = '';
+                var b_n = 1;
+                for (var i = 0; i < 6; i++) {
+                    var img_url = "../img/snack"+b_n+'.jpg';
+                    var nn = i%6;
+                    if (i%4 == 0) {output += "<tr>";}
+                    output+='<td>'+
+                                '<div class="s_element text-left">'+
+                                    '<div class="img_div text-center">'+
+                                        '<p class="rank color-bg1"><span></span></p>'+
+                                        '<img class="b_img" src=\"'+img_url+'\" alt="beer">'+
+                                        '<button class="b_h"><img src="../img/btn_heart_full.png" class="btn_heart" alt="btn_heart"></button>'+
+                                    '</div>'+
+                                    '<hr>'+       
+                                '</div>'+
+                            '</td>';
+                    b_n++;
+                }
+                $('#snack-container').append(output);
+
+            });
+        });
+        </script>
+        </div>  
+    </div>
+    <script src="../js/common.js"></script>
 </body>
 </html>
